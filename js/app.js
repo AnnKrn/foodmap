@@ -5,9 +5,13 @@ var $inputSearch = $('#search');
 
 var $inputButton = $('#search_btn');
 
+var $searchForm = $('#search_form');
+
 function loadPage() {
     //traer elementos de html. Eventos
     $inputSearch.keyup(filterCoincidence);
+    //revisar porque no funciona habilidar y deshabilitar boton
+    // $inputSearch.keyup(oneCharacter);
   }
 
 // funciones se desencadenan
@@ -22,8 +26,15 @@ function filterCoincidence () {
         // filtrar restaurantes por "type". comprar con key en data
         var filterRestaurantType = restaurants.filter(function(restaurant) {
             // console.log(restaurant)
-            console.log(restaurant.type.toLowerCase().indexOf(inputSearchValue) >= 0);
-        })
+            // console.log(restaurant.type.toLowerCase().indexOf(inputSearchValue) >= 0);
+            return restaurant.type.toLowerCase().indexOf(inputSearchValue) >= 0;
+        });
+        //prueba .detach(), sino funciona regresar a .empty()
+        $("#food_results").empty();
+        //forEach
+        filterRestaurantType.forEach(function (restaurant) {
+            paintSearchResult(restaurant);
+        });
         //si es correcta conincidencia pinta los resultados
     } //else, sino es correcta la coincidencia pide un nuevo valor. Mantienes el listado de restaurantes sin modificar
 }  
@@ -43,7 +54,11 @@ function paintSearchResult (restaurant) {
             "class": "card text-white"
         });
 
-        var $anchorResult = $("<a href="#" />", {
+        var $anchorResult = $("<a />", {
+            "class": "card-link card-text"
+        });
+
+        var $anchorResultAlong = $("<a />", {
             "class": "card-link card-text"
         });
 
@@ -59,18 +74,20 @@ function paintSearchResult (restaurant) {
             "class": "card-title"
         });
     // agregarles atributos
-        $imgResult.attr("src", restaurant.picture)
+        $imgResult.attr("src", restaurant.picture /*"assets/images/ñam5.jpg"*/)
+        console.log($imgResult)
     // saignando valores
         $titleContentResult.text(restaurant.name);
 
     // acomodarlos (padres e hijos)
         $anchorResult.append($imgResult);
 
-        $divContentResul.append($titleContentResult);
-        $divContentResul.append($anchorResult);
+        $divContentResult.append($titleContentResult);
+        $divContentResult.append($anchorResultAlong);
 
         $divCardResult.append($anchorResult);
-        $divCardResult.append($divContentResul);
+        // console.log($divCardResult)
+        $divCardResult.append($divContentResult);
 
         $colResults.append($divCardResult);
 
@@ -78,7 +95,18 @@ function paintSearchResult (restaurant) {
 
     // agregar al padre
     $foodResults.append($rowResults);
-
 }
+
+// function oneCharacter (e) {
+//     e.preventDefault
+//     if ($inputSearch.val().trim().length > 1 ) {
+//         // prop() permite manejar el valor booleano sin quitar el atributo.
+//         $inputButton.prop("disable", false)
+//         console.log('hola')
+//     } 
+//     else {
+//         $inputButton.prop("disable", true)
+//     };
+// };
 
 $(document).ready(loadPage);
