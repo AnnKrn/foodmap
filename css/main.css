@@ -1,8 +1,11 @@
-body {
-    background-color: grey;
-    color: orangered;
+#splashImage {
+    background-image: url("../assets/images/portada.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }
 
-.costume-size{
-    height: 150px;
+body {
+    color: orange;
 }
