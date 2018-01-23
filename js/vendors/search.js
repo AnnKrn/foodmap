@@ -121,13 +121,14 @@ function paintSearchResult (restaurant) {
 function showModal () {
     // valor del elemento seleccionada
    var $contentModalTitle = $(this).data("list");
-//    console.log($contentModalTitle);
+   console.log($contentModalTitle);
 //    console.log(restaurants[$contentModalTitle].name);
    //Etiquetas del modal
    var $restName = $("#rest-name");
    var $restDescription = $("#rest-description");
    var $restLocation = $("#rest-location");
    var $restPrice = $("#rest-price");
+   
 //    var $iguales = {}
 
     $restName.text(restaurants[$contentModalTitle].name);
