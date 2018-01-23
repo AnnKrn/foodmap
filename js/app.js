@@ -12,6 +12,8 @@ function loadPage() {
     $inputSearch.keyup(filterCoincidence);
     //revisar porque no funciona habilidar y deshabilitar boton
     // $inputSearch.keyup(oneCharacter);
+    $(".photo-restaurant").click(showModal);
+    // $('.rest-info').click(showModal);
   }
 
 // funciones se desencadenan
@@ -19,7 +21,7 @@ function filterCoincidence () {
     //obtener el valor del texto ingresado por el usuario
     //JS vanilla
     var inputSearchValue = $inputSearch.val().toLowerCase();
-    console.log(inputSearchValue)
+    // console.log(inputSearchValue)
     //comparar el data si el valor del inut obtenido se encuentra en data, sino pedir otro valor
     //trim quita espacios en blanco de un string
     if ($inputSearch.val().trim().length > 0) {
@@ -36,7 +38,7 @@ function filterCoincidence () {
             paintSearchResult(restaurant);
         });
         //si es correcta conincidencia pinta los resultados
-    } //else, sino es correcta la coincidencia pide un nuevo valor. Mantienes el listado de restaurantes sin modificar
+    };
 }  
 
 function paintSearchResult (restaurant) {
@@ -75,7 +77,7 @@ function paintSearchResult (restaurant) {
         });
     // agregarles atributos
         $imgResult.attr("src", restaurant.picture /*"assets/images/ñam5.jpg"*/)
-        console.log($imgResult)
+        // console.log($imgResult)
     // saignando valores
         $titleContentResult.text(restaurant.name);
 
@@ -99,7 +101,7 @@ function paintSearchResult (restaurant) {
 
 // function oneCharacter (e) {
 //     e.preventDefault
-//     if ($inputSearch.val().trim().length > 1 ) {
+//     if ($(this).val().trim().length > 1 ) {
 //         // prop() permite manejar el valor booleano sin quitar el atributo.
 //         $inputButton.prop("disable", false)
 //         console.log('hola')
@@ -108,5 +110,42 @@ function paintSearchResult (restaurant) {
 //         $inputButton.prop("disable", true)
 //     };
 // };
+
+// $('.rest-info').modal('hidde');
+
+function showModal () {
+    // valor del elemento seleccionada
+   var $contentModalTitle = $(this).data("title");
+   console.log($contentModalTitle);
+   console.log(restaurants[$contentModalTitle].name);
+   //Etiquetas del modal
+   var $restName = $("#rest-name");
+   var $restDescription = $("#rest-description");
+   var $restLocation = $("#rest-location");
+   var $restPrice = $("#rest-price");
+//    var $iguales = {}
+
+    $restName.text(restaurants[$contentModalTitle].name);
+    $restDescription.text(restaurants[$contentModalTitle].description);
+    $restLocation.text(restaurants[$contentModalTitle].location);
+    $restPrice.text(restaurants[$contentModalTitle].price);
+
+    console.log('')
+    
+    
+   // Obtener valor de data. Intente hacerlo los for pero el objeto que guarda el es el primero, no el que cumple la condicion
+//    Any ideas?
+    // for (var i = 0; i > restaurants.length; i++) {
+    //      if (restaurants[i].name === $contentModalTitle) {
+    //         var $iguales = restaurants[i].name;
+    //          //    $restName.text(restaurants[i].name);
+    //         }
+    //     };  
+        // console.log(restaurants[i].name);
+        // console.log($iguales);
+    // console.log(prueba)
+    
+    // console.log(restaurant[$contentModalTitle])
+};
 
 $(document).ready(loadPage);
