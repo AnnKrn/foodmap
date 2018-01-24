@@ -15,7 +15,7 @@ var restaurants = [ {
     'price' : "200 - 300",
     'description' : 'Necessitatibus quasi dolores maxime magni veniam natus aliquam a quidem?',
     'list': 1
-},
+},  
 {
     'name' : 'Ñam Ñam',
     'type' : 'Mexicana',
