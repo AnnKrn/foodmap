@@ -8,12 +8,17 @@ var $inputButton = $('#search_btn');
 var $searchForm = $('#search_form');
 
 function loadPage() {
-    //traer elementos de html. Eventos
+    //traer elementos de html. Eventos    
     $inputSearch.keyup(filterCoincidence);
     //revisar porque no funciona habilidar y deshabilitar boton
     // $inputSearch.keyup(oneCharacter);
-    $(".photo-restaurant").click(showModal);
+    // llama modal de html
+    // $(".photo-restaurant").click(showModal);
     // $('.rest-info').click(showModal);
+    // llama modal creado dinamicamente
+    $(document).on("click", ".photo-restaurant", showModal);
+    // Cerrar modal y mostrar toda la data
+    // $("#rest-info").on("hidden.bs.modal", paintSearchResult);
   }
 
 // funciones se desencadenan
@@ -64,10 +69,15 @@ function paintSearchResult (restaurant) {
         //     "class": "card-link card-text"
         // });
 
-        // var $anchorResultAlong = $("<a />", {
-        //     // "class": "card-link card-text"
-        // });
-
+        var $anchorResultAlong = $("<a />", {
+            "class": "card-link card-text"
+        });
+        
+        $anchorResultAlong.attr('data-toggle', "modal");
+        $anchorResultAlong.attr('data-target', "#rest-info");
+        $anchorResultAlong.attr('data-list', restaurant.list);
+        
+        console.log($anchorResultAlong)
         var $imgResult = $("<img />", {
             "class": "card-img costume-size"
         });
@@ -89,7 +99,7 @@ function paintSearchResult (restaurant) {
         // $anchorResult.append($imgResult);
 
         $divContentResult.append($titleContentResult);
-        // $divContentResult.append($anchorResultAlong);
+        $divContentResult.append($anchorResultAlong);
 
         // $divCardResult.append($anchorResult);
         // console.log($divCardResult)
@@ -132,6 +142,7 @@ function showModal () {
 //    var $iguales = {}
 
     $restName.text(restaurants[$contentModalTitle].name);
+    console.log($restName)
     $restDescription.text(restaurants[$contentModalTitle].description);
     $restLocation.text(restaurants[$contentModalTitle].location);
     $restPrice.text(restaurants[$contentModalTitle].price);
